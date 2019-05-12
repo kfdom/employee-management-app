@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 const User = require('../../models/User');
 const Team = require('../../models/Team');
@@ -39,6 +41,7 @@ router.get('/:id', async (req, res) => {
 //CREATE OR UPDATE USER
 router.post(
   '/',
+
   [
     check('name', 'Name is required')
       .not()
@@ -52,9 +55,11 @@ router.post(
       .isEmpty(),
     check('team', 'Team is required')
       .not()
-      .isEmpty()
+      .isEmpty(),
+    upload.single('userImg')
   ],
   async (req, res) => {
+    console.log('FILE', req.file);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
