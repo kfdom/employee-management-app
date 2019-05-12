@@ -1,0 +1,21 @@
+{
+  "name": "affinity-id-app",
+  "version": "1.0.0",
+  "description": "Affinity ID App",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server"
+  },
+  "author": "Dominic Ng",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.5.7",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.19.0"
+  }
+}
