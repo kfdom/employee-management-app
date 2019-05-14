@@ -49,7 +49,6 @@ const UserManagementSection = ({
 };
 
 const mapStateToProps = state => {
-  console.log('ALL STATE', state);
   return {
     currentView: state.user.currentView,
     selectedUser: state.user.selectedUser,

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import UsersByRoleField from './Fields/UsersByRoleField';
 import { loadView } from '../actions/user';
 
-const UserListSection = ({ userList, loadView, selectedUser }) => {
+const UserListSection = ({ userList, loadView, selectedUser, loading }) => {
   const [searchText, setSearchText] = useState();
   const [sortType, setSortType] = useState(-1);
 
@@ -27,42 +27,58 @@ const UserListSection = ({ userList, loadView, selectedUser }) => {
 
   return (
     <>
-      <input
-        type="text"
-        placeholder="Search Employee"
-        className="search-input"
-        onChange={e => setSearchText(e.target.value)}
-      />
-      <div className="bottom-large-spacing" />
-      <div className="float-right">
-        <span className="text-medium">Sort By:</span>{' '}
-        <span
-          className="text-large"
-          style={{ cursor: 'pointer' }}
-          onClick={() => setSortType(-sortType)}
-        >
-          Date/Time
-        </span>
-      </div>
-      <UsersByRoleField
-        users={admins}
-        userRole={`Admin`}
-        onClick={loadView}
-        currentActiveUser={selectedUser}
-      />
-      <UsersByRoleField
-        users={employees}
-        userRole={`Employee`}
-        onClick={loadView}
-        currentActiveUser={selectedUser}
-      />
+      {loading ? (
+        <>
+          <div className="loading-div">
+            <h3>Loading...</h3>
+            <div className="loading">
+              <i className="fas fa-spinner" />
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <input
+            type="text"
+            placeholder="Search Employee"
+            className="search-input"
+            onChange={e => setSearchText(e.target.value)}
+          />
+          <div className="bottom-large-spacing" />
+          <div className="float-right">
+            <span className="text-medium">Sort By:</span>{' '}
+            <span
+              className="text-large"
+              style={{ cursor: 'pointer' }}
+              onClick={() => setSortType(-sortType)}
+            >
+              Date/Time
+            </span>
+          </div>
+          <UsersByRoleField
+            users={admins}
+            userRole={`Admin`}
+            onClick={loadView}
+            currentActiveUser={selectedUser}
+          />
+          <UsersByRoleField
+            users={employees}
+            userRole={`Employee`}
+            onClick={loadView}
+            currentActiveUser={selectedUser}
+          />
+        </>
+      )}
     </>
   );
 };
 
 const mapStateToProps = state => {
-  console.log(state);
-  return { userList: state.user.userList, selectedUser: state.user.selectedUser };
+  return {
+    userList: state.user.userList,
+    selectedUser: state.user.selectedUser,
+    loading: state.user.loading
+  };
 };
 
 export default connect(
