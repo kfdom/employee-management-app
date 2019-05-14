@@ -1,4 +1,5 @@
 import React from 'react';
+import { copyToClipboard } from '../../ultilities/ultilities';
 
 const ViewByUserField = ({ selectedUser, deleteUser, loadView }) => (
   <>
@@ -32,21 +33,28 @@ const ViewByUserField = ({ selectedUser, deleteUser, loadView }) => (
       </div>
       <hr />{' '}
       <div className="row text-left">
-        <div className="col-md-6">
-          <div className="text-small bottom-spacing">Role</div>
-          <div className="text-medium bottom-spacing">{selectedUser.roledesc[0].role}</div>
+        <div className="card-info-top-row">
+          <div className="text-small card-info-row">Role</div>
+          <div className="text-medium card-info-row">{selectedUser.roledesc[0].role}</div>
         </div>
-        <div className="col-md-6">
-          <div className="text-small bottom-spacing">Team</div>
-          <div className="text-medium bottom-spacing">{selectedUser.teamdesc[0].team}</div>
+        <div className="card-info-top-row">
+          <div className="text-small card-info-row">Team</div>
+          <div className="text-medium card-info-row">{selectedUser.teamdesc[0].team}</div>
         </div>
       </div>
       <hr />{' '}
-      <div className="text-left">
-        <div className="text-small bottom-spacing">Address</div>
-        <div className="text-medium bottom-spacing">{selectedUser.address}</div>
+      <div className="text-center">
+        <div className="text-small card-info-center-row">Address</div>
+        <div className="text-medium card-info-center-row">{selectedUser.address}</div>
       </div>
-      <button className="button-grey">SHARE</button>
+      <button
+        className="button-grey top-medium-spacing"
+        onClick={() =>
+          copyToClipboard(`${window.location.host}/iffinityuserid=${selectedUser._id}`)
+        }
+      >
+        SHARE
+      </button>
     </div>
   </>
 );

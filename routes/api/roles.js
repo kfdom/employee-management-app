@@ -7,7 +7,6 @@ const Role = require('../../models/Role');
 router.get('/', async (req, res) => {
   try {
     let roles = await Role.find();
-    console.log(roles);
     res.json(roles);
   } catch (err) {
     console.error(err.message);

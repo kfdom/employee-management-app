@@ -9,7 +9,7 @@ const AddEditByUserField = ({
   selectedUser
 }) => {
   useEffect(() => {
-    let inputNode = document.getElementById('address');
+    var inputNode = document.getElementById('address');
     let autoComplete = new window.google.maps.places.Autocomplete(inputNode);
     autoComplete.setComponentRestrictions({
       country: ['nz']
@@ -18,6 +18,7 @@ const AddEditByUserField = ({
     autoComplete.addListener('place_changed', () => {
       let place = autoComplete.getPlace();
       let location = place.geometry.location;
+      inputNode.focus();
     });
   }, []);
 
@@ -121,6 +122,7 @@ const AddEditByUserField = ({
             id="address"
             placeholder="Address"
             onChange={e => setAddress(e.target.value)}
+            onBlur={e => setAddress(e.target.value)}
             value={address}
           />
         </div>

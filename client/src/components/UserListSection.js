@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import UsersByRoleField from './Fields/UsersByRoleField';
 import { loadView } from '../actions/user';
 
-const UserListSection = ({ userList, loadView }) => {
+const UserListSection = ({ userList, loadView, selectedUser }) => {
   const [searchText, setSearchText] = useState();
   const [sortType, setSortType] = useState(-1);
 
@@ -29,7 +29,7 @@ const UserListSection = ({ userList, loadView }) => {
     <>
       <input
         type="text"
-        placeholder="Search User"
+        placeholder="Search Employee"
         className="search-input"
         onChange={e => setSearchText(e.target.value)}
       />
@@ -44,14 +44,25 @@ const UserListSection = ({ userList, loadView }) => {
           Date/Time
         </span>
       </div>
-      <UsersByRoleField users={admins} userRole={`Admin`} onClick={loadView} />
-      <UsersByRoleField users={employees} userRole={`Employee`} onClick={loadView} />
+      <UsersByRoleField
+        users={admins}
+        userRole={`Admin`}
+        onClick={loadView}
+        currentActiveUser={selectedUser}
+      />
+      <UsersByRoleField
+        users={employees}
+        userRole={`Employee`}
+        onClick={loadView}
+        currentActiveUser={selectedUser}
+      />
     </>
   );
 };
 
 const mapStateToProps = state => {
-  return { userList: state.user.userList };
+  console.log(state);
+  return { userList: state.user.userList, selectedUser: state.user.selectedUser };
 };
 
 export default connect(

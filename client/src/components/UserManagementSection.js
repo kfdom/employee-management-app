@@ -18,12 +18,14 @@ const UserManagementSection = ({
   return (
     <>
       <div className="text-center">
-        <button className="button-black" onClick={() => loadView('Add')}>
-          CREATE A NEW EMPLOYEE
-        </button>
-        <div className="bottom-large-spacing" />
-        <Alert />
-        <div className="bottom-large-spacing" />
+        <div className="container-button">
+          <button className="button-black" onClick={() => loadView('Add')}>
+            CREATE A NEW EMPLOYEE
+          </button>
+          <div className="bottom-large-spacing" />
+          <Alert />
+        </div>
+        <div className="bottom-x-large-spacing" />
         {selectedUser && currentView === 'View' && (
           <ViewByUserField
             selectedUser={selectedUser}
