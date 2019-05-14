@@ -1,0 +1,14 @@
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
+export const USER_LOADED = 'USER_LOADED';
+export const USER_LOAD_ERROR = 'USER_LOAD_ERROR';
+export const ADD_USER = 'ADD_USER';
+export const UPDATE_USER = 'UPDATE_USER';
+export const DELETE_USER = 'DELETE_USER';
+export const DISPLAY_ADD_USER = 'DISPLAY_ADD_USER';
+export const DISPLAY_EDIT_USER = 'DISPLAY_EDIT_USER';
+export const DISPLAY_VIEW_USER = 'DISPLAY_VIEW_USER';
+export const ROLE_LOADED = 'ROLE_LOADED';
+export const ROLE_LOAD_ERROR = 'ROLE_LOAD_ERROR';
+export const TEAM_LOADED = 'TEAM_LOADED';
+export const TEAM_LOAD_ERROR = 'TEAM_LOAD_ERROR';

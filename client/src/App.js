@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Fragment, useEffect } from 'react';
+//import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import UserListSection from './components/UserListSection';
+import UserManagementSection from './components/UserManagementSection';
+
+import { ReactComponent as Logo } from './static/images/affinityid-logo.svg';
+// Redux
+import { Provider } from 'react-redux';
+import store from './store';
+import { loadUser } from './actions/user';
+import { loadRole } from './actions/role';
+import { loadTeam } from './actions/team';
+
 import './App.css';
 
-function App() {
+const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+    store.dispatch(loadRole());
+    store.dispatch(loadTeam());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Fragment>
+        <div className="page-background">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-5">
+                <Logo />
+                <div style={{ height: '50px' }} />
+                <UserListSection />
+              </div>
+              <div className="offset-md-1 col-md-6">
+                <UserManagementSection />
+              </div>
+            </div>
+          </div>
+        </div>
+      </Fragment>
+    </Provider>
   );
-}
+};
 
 export default App;

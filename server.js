@@ -8,6 +8,7 @@ const app = express();
 connectDB();
 
 app.use(express.json({ extended: true }));
+app.use('/uploads', express.static('uploads'));
 
 //app.use(bodyParser.urlencoded({ extended: false }))
 //app.use(bodyParser.json())
