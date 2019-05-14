@@ -14,7 +14,6 @@ router.get('/', async (req, res) => {
       { $lookup: { from: 'profileimgs', localField: 'image', foreignField: '_id', as: 'filename' } }
     ]).exec((err, newUsers) => {
       if (err) return res.status(404).json({ msg: 'User not found' });
-      console.log('newUsers', newUsers);
       res.json(newUsers);
     });
   } catch (err) {
@@ -64,7 +63,6 @@ router.post(
     check('team', 'Team is required')
       .not()
       .isEmpty()
-    //upload.single('userImg')
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -120,10 +118,6 @@ router.post(
 );
 
 router.delete('/:id', async (req, res) => {
-  // const errors = validationResult(req);
-  // if (!errors.isEmpty()) {
-  //   return res.status(400).json({ errors: errors.array() });
-  // }
   const id = req.params.id;
 
   try {

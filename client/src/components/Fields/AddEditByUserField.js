@@ -16,8 +16,6 @@ const AddEditByUserField = ({
     });
     autoComplete.setFields(['formatted_address', 'address_components', 'geometry']);
     autoComplete.addListener('place_changed', () => {
-      let place = autoComplete.getPlace();
-      let location = place.geometry.location;
       inputNode.focus();
     });
   }, []);

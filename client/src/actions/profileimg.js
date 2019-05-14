@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { PROFILEIMG_LOADED, PROFILEIMG_LOAD_ERROR } from './types';
 
-// Load User
+// Load all profile images
 export const loadProfileImg = () => async dispatch => {
   try {
     const res = await axios.get('/api/profileimages');

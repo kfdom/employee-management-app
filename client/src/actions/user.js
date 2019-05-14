@@ -92,7 +92,8 @@ export const addUpdateUser = ({
 // Delete User
 export const deleteUser = id => async dispatch => {
   try {
-    const res = await axios.delete(`/api/users/${id}`);
+    await axios.delete(`/api/users/${id}`);
+
     dispatch({
       type: DISPLAY_EMPTY_USER
     });

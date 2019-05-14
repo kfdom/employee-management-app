@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { TEAM_LOADED, TEAM_LOAD_ERROR } from './types';
 
-// Load User
+// Load all teams
 export const loadTeam = () => async dispatch => {
   try {
     const res = await axios.get('/api/teams');
