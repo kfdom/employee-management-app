@@ -10,12 +10,14 @@ import store from './store';
 import { loadUser } from './actions/user';
 import { loadRole } from './actions/role';
 import { loadTeam } from './actions/team';
+import { loadProfileImg } from './actions/profileimg';
 
 import './App.css';
 
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
+    store.dispatch(loadProfileImg());
     store.dispatch(loadRole());
     store.dispatch(loadTeam());
   }, []);

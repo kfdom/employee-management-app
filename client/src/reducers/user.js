@@ -4,6 +4,7 @@ import {
   DISPLAY_ADD_USER,
   DISPLAY_EDIT_USER,
   DISPLAY_VIEW_USER,
+  DISPLAY_EMPTY_USER,
   ROLE_LOADED,
   TEAM_LOADED
 } from '../actions/types';
@@ -47,6 +48,12 @@ export default function(state = initialState, action) {
         ...state,
         currentView: 'View',
         selectedUser: payload
+      };
+    case DISPLAY_EMPTY_USER:
+      return {
+        ...state,
+        currentView: 'Empty',
+        selectedUser: null
       };
     case ROLE_LOADED:
       return {

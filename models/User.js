@@ -24,8 +24,10 @@ const UserSchema = new mongoose.Schema({
     ref: 'team',
     required: true
   },
-  imageURL: {
-    type: String
+  image: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'profileImg',
+    required: true
   },
 
   date: {

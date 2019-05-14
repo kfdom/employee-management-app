@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { loadView, addUser } from '../actions/user';
+import { loadView, addUser, deleteUser } from '../actions/user';
 import Alert from './Alert';
 import ViewByUserField from './Fields/ViewByUserField';
 import AddEditByUserField from './Fields/AddEditByUserField';
@@ -11,7 +11,9 @@ const UserManagementSection = ({
   selectedUser,
   roleList,
   teamList,
-  addUser
+  addUser,
+  deleteUser,
+  profileImgList
 }) => {
   return (
     <>
@@ -22,9 +24,16 @@ const UserManagementSection = ({
         <div className="bottom-large-spacing" />
         <Alert />
         <div className="bottom-large-spacing" />
-        {selectedUser && currentView === 'View' && <ViewByUserField selectedUser={selectedUser} />}
+        {selectedUser && currentView === 'View' && (
+          <ViewByUserField selectedUser={selectedUser} deleteUser={deleteUser} />
+        )}
         {currentView === 'Add' && (
-          <AddEditByUserField roleList={roleList} teamList={teamList} addUser={addUser} />
+          <AddEditByUserField
+            roleList={roleList}
+            teamList={teamList}
+            addUser={addUser}
+            profileImgList={profileImgList}
+          />
         )}
       </div>
     </>
@@ -37,11 +46,12 @@ const mapStateToProps = state => {
     currentView: state.user.currentView,
     selectedUser: state.user.selectedUser,
     roleList: state.role.roleList,
-    teamList: state.team.teamList
+    teamList: state.team.teamList,
+    profileImgList: state.profileimg.profileImgList
   };
 };
 
 export default connect(
   mapStateToProps,
-  { loadView, addUser }
+  { loadView, addUser, deleteUser }
 )(UserManagementSection);

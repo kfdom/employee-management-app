@@ -1,19 +1,29 @@
 import React from 'react';
 
-const ViewByUserField = ({ selectedUser }) => (
+const ViewByUserField = ({ selectedUser, deleteUser }) => (
   <>
     <div className="container-border">
       <div className="center">
         <img
           className="profile-img-large"
-          src="http://localhost:5000/uploads/andy.png"
+          src={`http://localhost:5000/uploads/${selectedUser.filename[0].filename}`}
           alt="Not Found"
         />
         <div className="text-xlarge bottom-spacing">{selectedUser.name}</div>
         <div className="text-small bottom-spacing">{selectedUser.email}</div>
         <div>
           <i className="fas fa-pen" />
-          <i className="fas fa-times" style={{ color: 'red', marginLeft: '50px' }} />
+          <i
+            className="fas fa-times"
+            style={{ color: 'red', marginLeft: '50px' }}
+            onClick={() => {
+              const confirmed = window.confirm('Are you sure you want to delete this employee?');
+              if (!confirmed) {
+                return;
+              }
+              deleteUser(selectedUser._id);
+            }}
+          />
         </div>
       </div>
       <hr />{' '}

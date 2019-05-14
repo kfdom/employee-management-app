@@ -6,7 +6,7 @@ const Card = ({ user, onClick }) => (
       <div className="col-md-3">
         <img
           className="profile-img-small"
-          src="http://localhost:5000/uploads/andy.png"
+          src={`http://localhost:5000/uploads/${user.filename[0].filename}`}
           alt="Not Found"
         />
       </div>

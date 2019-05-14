@@ -17,6 +17,7 @@ app.get('/', (req, res) => res.send('API...'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/teams', require('./routes/api/teams'));
 app.use('/api/roles', require('./routes/api/roles'));
+app.use('/api/profileimages', require('./routes/api/profileimages'));
 
 const PORT = process.env.PORT || 5000;
 

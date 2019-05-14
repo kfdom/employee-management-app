@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const AddEditByUserField = ({ roleList, teamList, addUser }) => {
+const AddEditByUserField = ({ roleList, teamList, profileImgList, addUser }) => {
   useEffect(() => {
     let inputNode = document.getElementById('address');
     let autoComplete = new window.google.maps.places.Autocomplete(inputNode);
@@ -19,9 +19,24 @@ const AddEditByUserField = ({ roleList, teamList, addUser }) => {
   const [role, setRole] = useState();
   const [team, setTeam] = useState();
   const [address, setAddress] = useState();
+  const [profileImg, setProfileImg] = useState();
+
   return (
     <div className="container-border">
       <div className="text-left">
+        <div className="form-group">
+          <label htmlFor="ProfileImg">Profile Image</label>
+          <select className="form-control" onChange={e => setProfileImg(e.target.value)}>
+            <option value="">Please select Profile Image</option>
+            {profileImgList.map(img => {
+              return (
+                <>
+                  <option value={img._id}>{img.filename}</option>
+                </>
+              );
+            })}
+          </select>
+        </div>
         <div className="form-group">
           <label htmlFor="Name">Name</label>
           <input
@@ -82,7 +97,7 @@ const AddEditByUserField = ({ roleList, teamList, addUser }) => {
       <button
         type="button"
         className="button-green"
-        onClick={() => addUser({ name, email, role, team, address })}
+        onClick={() => addUser({ name, email, role, team, address, profileImg })}
       >
         ADD EMPLOYEE
       </button>

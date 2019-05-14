@@ -5,7 +5,8 @@ import {
   USER_LOAD_ERROR,
   DISPLAY_ADD_USER,
   DISPLAY_EDIT_USER,
-  DISPLAY_VIEW_USER
+  DISPLAY_VIEW_USER,
+  DISPLAY_EMPTY_USER
 } from './types';
 
 // Load User
@@ -48,16 +49,14 @@ export const loadView = (type, user) => async dispatch => {
 };
 
 // Add User
-export const addUser = ({ name, email, role, team, address, ...props }) => async dispatch => {
+export const addUser = ({ name, email, role, team, address, profileImg }) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
   };
 
-  console.log('!!!!!!!!SUBMIT!!', name, email, role, team, address);
-
-  const body = JSON.stringify({ name, email, role, team, address });
+  const body = JSON.stringify({ name, email, role, team, address, image: profileImg });
 
   try {
     const res = await axios.post('/api/users', body, config);
@@ -66,7 +65,26 @@ export const addUser = ({ name, email, role, team, address, ...props }) => async
     dispatch(setAlert('Employee successfully created', 'success'));
     dispatch(loadUser());
   } catch (err) {
-    console.log('ERROR', err);
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch(loadUser());
+  }
+};
+
+// Delete User
+export const deleteUser = id => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/users/${id}`);
+    dispatch({
+      type: DISPLAY_EMPTY_USER
+    });
+    dispatch(setAlert('Employee successfully deleted', 'success'));
+    dispatch(loadUser());
+  } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
