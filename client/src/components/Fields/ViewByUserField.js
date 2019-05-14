@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ViewByUserField = ({ selectedUser, deleteUser }) => (
+const ViewByUserField = ({ selectedUser, deleteUser, loadView }) => (
   <>
     <div className="container-border">
       <div className="center">
@@ -12,10 +12,14 @@ const ViewByUserField = ({ selectedUser, deleteUser }) => (
         <div className="text-xlarge bottom-spacing">{selectedUser.name}</div>
         <div className="text-small bottom-spacing">{selectedUser.email}</div>
         <div>
-          <i className="fas fa-pen" />
+          <i
+            className="fas fa-pen"
+            style={{ cursor: 'pointer' }}
+            onClick={() => loadView('Edit', selectedUser._id)}
+          />
           <i
             className="fas fa-times"
-            style={{ color: 'red', marginLeft: '50px' }}
+            style={{ color: 'red', marginLeft: '50px', cursor: 'pointer' }}
             onClick={() => {
               const confirmed = window.confirm('Are you sure you want to delete this employee?');
               if (!confirmed) {

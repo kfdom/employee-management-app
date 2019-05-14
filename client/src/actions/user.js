@@ -49,20 +49,34 @@ export const loadView = (type, user) => async dispatch => {
 };
 
 // Add User
-export const addUser = ({ name, email, role, team, address, profileImg }) => async dispatch => {
+export const addUpdateUser = ({
+  name,
+  email,
+  role,
+  team,
+  address,
+  profileImg,
+  id
+}) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
   };
 
-  const body = JSON.stringify({ name, email, role, team, address, image: profileImg });
+  const body = JSON.stringify({ name, email, role, team, address, image: profileImg, id });
 
   try {
     const res = await axios.post('/api/users', body, config);
 
-    dispatch(loadView('View', res.data));
-    dispatch(setAlert('Employee successfully created', 'success'));
+    if (id) {
+      dispatch(loadView('View', id));
+      dispatch(setAlert('Employee successfully updated', 'success'));
+    } else {
+      dispatch(loadView('View', res.data));
+      dispatch(setAlert('Employee successfully created', 'success'));
+    }
+
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;

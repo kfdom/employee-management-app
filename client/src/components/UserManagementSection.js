@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { loadView, addUser, deleteUser } from '../actions/user';
+import { loadView, addUpdateUser, deleteUser } from '../actions/user';
 import Alert from './Alert';
 import ViewByUserField from './Fields/ViewByUserField';
 import AddEditByUserField from './Fields/AddEditByUserField';
@@ -11,7 +11,7 @@ const UserManagementSection = ({
   selectedUser,
   roleList,
   teamList,
-  addUser,
+  addUpdateUser,
   deleteUser,
   profileImgList
 }) => {
@@ -25,14 +25,20 @@ const UserManagementSection = ({
         <Alert />
         <div className="bottom-large-spacing" />
         {selectedUser && currentView === 'View' && (
-          <ViewByUserField selectedUser={selectedUser} deleteUser={deleteUser} />
+          <ViewByUserField
+            selectedUser={selectedUser}
+            deleteUser={deleteUser}
+            loadView={loadView}
+          />
         )}
-        {currentView === 'Add' && (
+        {(currentView === 'Add' || currentView === 'Edit') && (
           <AddEditByUserField
             roleList={roleList}
             teamList={teamList}
-            addUser={addUser}
+            addUpdateUser={addUpdateUser}
             profileImgList={profileImgList}
+            currentView={currentView}
+            selectedUser={selectedUser}
           />
         )}
       </div>
@@ -53,5 +59,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { loadView, addUser, deleteUser }
+  { loadView, addUpdateUser, deleteUser }
 )(UserManagementSection);

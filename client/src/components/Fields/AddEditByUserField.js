@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-const AddEditByUserField = ({ roleList, teamList, profileImgList, addUser }) => {
+const AddEditByUserField = ({
+  roleList,
+  teamList,
+  profileImgList,
+  addUpdateUser,
+  currentView,
+  selectedUser
+}) => {
   useEffect(() => {
     let inputNode = document.getElementById('address');
     let autoComplete = new window.google.maps.places.Autocomplete(inputNode);
@@ -14,12 +21,28 @@ const AddEditByUserField = ({ roleList, teamList, profileImgList, addUser }) => 
     });
   }, []);
 
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [role, setRole] = useState();
-  const [team, setTeam] = useState();
-  const [address, setAddress] = useState();
-  const [profileImg, setProfileImg] = useState();
+  let defaultName = '';
+  let defaultEmail = '';
+  let defaultRole = '';
+  let defaultTeam = '';
+  let defaultAddress = '';
+  let defaultProfileImg = '';
+
+  if (currentView === 'Edit') {
+    defaultName = selectedUser.name;
+    defaultEmail = selectedUser.email;
+    defaultRole = selectedUser.role;
+    defaultTeam = selectedUser.team;
+    defaultAddress = selectedUser.address;
+    defaultProfileImg = selectedUser.image;
+  }
+
+  const [name, setName] = useState(defaultName);
+  const [email, setEmail] = useState(defaultEmail);
+  const [role, setRole] = useState(defaultRole);
+  const [team, setTeam] = useState(defaultTeam);
+  const [address, setAddress] = useState(defaultAddress);
+  const [profileImg, setProfileImg] = useState(defaultProfileImg);
 
   return (
     <div className="container-border">
@@ -31,7 +54,9 @@ const AddEditByUserField = ({ roleList, teamList, profileImgList, addUser }) => 
             {profileImgList.map(img => {
               return (
                 <>
-                  <option value={img._id}>{img.filename}</option>
+                  <option value={img._id} selected={profileImg === img._id}>
+                    {img.filename}
+                  </option>
                 </>
               );
             })}
@@ -55,16 +80,19 @@ const AddEditByUserField = ({ roleList, teamList, profileImgList, addUser }) => 
             placeholder="Email"
             onChange={e => setEmail(e.target.value)}
             value={email}
+            readOnly={currentView === 'Edit'}
           />
         </div>
         <div className="form-group">
           <label htmlFor="Role">Role</label>
           <select className="form-control" required onChange={e => setRole(e.target.value)}>
             <option value="">Please select Role</option>
-            {roleList.map(role => {
+            {roleList.map(r => {
               return (
                 <>
-                  <option value={role._id}>{role.role}</option>
+                  <option value={r._id} selected={role === r._id}>
+                    {r.role}
+                  </option>
                 </>
               );
             })}
@@ -74,10 +102,12 @@ const AddEditByUserField = ({ roleList, teamList, profileImgList, addUser }) => 
           <label htmlFor="Role">Team</label>
           <select className="form-control" required onChange={e => setTeam(e.target.value)}>
             <option value="">Please select Team</option>
-            {teamList.map(team => {
+            {teamList.map(t => {
               return (
                 <>
-                  <option value={team._id}>{team.team}</option>
+                  <option value={t._id} selected={team === t._id}>
+                    {t.team}
+                  </option>
                 </>
               );
             })}
@@ -91,15 +121,20 @@ const AddEditByUserField = ({ roleList, teamList, profileImgList, addUser }) => 
             id="address"
             placeholder="Address"
             onChange={e => setAddress(e.target.value)}
+            value={address}
           />
         </div>
       </div>
       <button
         type="button"
         className="button-green"
-        onClick={() => addUser({ name, email, role, team, address, profileImg })}
+        onClick={() =>
+          currentView === 'Add'
+            ? addUpdateUser({ name, email, role, team, address, profileImg })
+            : addUpdateUser({ name, email, role, team, address, profileImg, id: selectedUser._id })
+        }
       >
-        ADD EMPLOYEE
+        {currentView === 'Add' ? 'ADD EMPLOYEE' : 'UPDATE EMPLOYEE'}
       </button>
     </div>
   );
