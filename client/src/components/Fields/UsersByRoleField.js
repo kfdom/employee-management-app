@@ -4,9 +4,10 @@ import Card from '../FormElements/Card';
 const UsersByRoleField = ({ userRole, users, onClick, currentActiveUser }) => (
   <>
     {users.length > 0 && <div className="role-heading">{userRole}</div>}
-    {users.map(user => {
+    {users.map((user, index) => {
       return (
         <Card
+          key={index}
           user={user}
           onClick={onClick}
           isSelected={currentActiveUser && currentActiveUser._id === user._id}

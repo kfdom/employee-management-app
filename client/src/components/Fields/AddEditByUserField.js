@@ -48,15 +48,19 @@ const AddEditByUserField = ({
       <div className="text-left">
         <div className="form-group">
           <label htmlFor="ProfileImg">Profile Image</label>
-          <select className="form-control" onChange={e => setProfileImg(e.target.value)}>
-            <option value="">Please select Profile Image</option>
-            {profileImgList.map(img => {
+          <select
+            className="form-control"
+            onChange={e => setProfileImg(e.target.value)}
+            defaultValue={profileImg}
+          >
+            <option key="0" value="">
+              Please select Profile Image
+            </option>
+            {profileImgList.map((img, index) => {
               return (
-                <>
-                  <option value={img._id} selected={profileImg === img._id}>
-                    {img.filename}
-                  </option>
-                </>
+                <option key={index + 1} value={img._id}>
+                  {img.filename}
+                </option>
               );
             })}
           </select>
@@ -84,30 +88,40 @@ const AddEditByUserField = ({
         </div>
         <div className="form-group">
           <label htmlFor="Role">Role</label>
-          <select className="form-control" required onChange={e => setRole(e.target.value)}>
-            <option value="">Please select Role</option>
-            {roleList.map(r => {
+          <select
+            className="form-control"
+            required
+            onChange={e => setRole(e.target.value)}
+            defaultValue={role}
+          >
+            <option key="0" value="">
+              Please select Role
+            </option>
+            {roleList.map((r, index) => {
               return (
-                <>
-                  <option value={r._id} selected={role === r._id}>
-                    {r.role}
-                  </option>
-                </>
+                <option key={index + 1} value={r._id}>
+                  {r.role}
+                </option>
               );
             })}
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="Role">Team</label>
-          <select className="form-control" required onChange={e => setTeam(e.target.value)}>
-            <option value="">Please select Team</option>
-            {teamList.map(t => {
+          <label htmlFor="Team">Team</label>
+          <select
+            className="form-control"
+            required
+            onChange={e => setTeam(e.target.value)}
+            defaultValue={team}
+          >
+            <option key="0" value="">
+              Please select Team
+            </option>
+            {teamList.map((t, index) => {
               return (
-                <>
-                  <option value={t._id} selected={team === t._id}>
-                    {t.team}
-                  </option>
-                </>
+                <option key={index + 1} value={t._id}>
+                  {t.team}
+                </option>
               );
             })}
           </select>
