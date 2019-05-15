@@ -2,10 +2,12 @@
 
 This Employee Management App project was build based on requirements from Affinity ID using JavaScript/React/MongoDB.
 
+For Demo quick access http://mytechjourneys.com:3000
+
 ## Getting Started
 
 * These instructions will get you a copy of the project up and running on your local machine for development and demo purposes.
-* It split into two part, the front-end which contains all the UI and back-end using NodeJS Express(API) and MongoDB thats store all the data.
+* It split into two part, the front-end which contains all the UI and back-end using NodeJS Express(API) and MongoDB that store all the data.
 * MongoDB is hosted at mongodb.com (Free user) for easy access, first loading will take longer time.
 
 ### Prerequisites
